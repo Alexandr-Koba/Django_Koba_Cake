@@ -26,6 +26,20 @@ class BasicInstallTest(unittest.TestCase):
         header = self.browser.find_elements(By.TAG_NAME, 'h1')[0]
         # Получаем текст из первого элемента с тегом h1
         self.assertIn('Koba Cake - Закажи десерт', header.text)
+
+    def test_home_page_blog(self):
+        # Под шапкой расположен блог со статьями о десертах
+        self.browser.get('http://127.0.0.1:8000')
+        article_list = self.browser.find_element_by_class_name('article-list')
+        self.assertTrue(article_list)
+
+    def test_home_page_articles_look_correct(self):
+        # У каждой статьи есть заголовок и один абзац с текстом
+        self.browser.get('http://127.0.0.1:8000')
+        article_title = self.browser.find_element_by_class_name('article_title')
+        article_summary = self.browser.find_element_by_class_name('article_summary')
+        self.assertTrue(article_title)
+        self.assertTrue(article_summary)
         
 if __name__ == '__main__':
     unittest.main()
