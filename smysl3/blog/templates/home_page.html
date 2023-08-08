@@ -1,0 +1,16 @@
+<html>
+    <title>Koba Cake</title>
+    <h1>Koba Cake</h1>
+
+    <div class="article_list">
+        {% for article in articles %}
+            <div class=""aricle>
+                <h2 class="article-title">{{ article.title }}</h2>
+                <p class="article-summary">{{ article.summary }}</p>
+            </div>
+        {% endfor %}
+
+
+
+    </div>
+</html>

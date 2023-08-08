@@ -5,7 +5,43 @@ from blog.models import  Article
 from django.http import HttpRequest
 from datetime import datetime
 
+
+
+
 class HomePageTest(TestCase):
+    # Проверяет главную страницу
+    def test_home_page_displays_articles(self): 
+        # Создает статью 1
+        Article.objects.create(
+            title='title 1',
+            summary='summary 1',
+            full_text='full_text 1',
+            pubdate=datetime.now()
+        )
+        # Создает статью 2
+        Article.objects.create(
+            title='title 1',
+            summary='summary 1',
+            full_text='full_text 1',
+            pubdate=datetime.now()
+        )
+        # Открывает главную страницу
+        request = HttpRequest()
+        response = home_page(request)
+        html = response.content.decode('utf8')
+
+        # проверить содержимое ответа:
+        self.assertIn('title 1', html)
+        self.assertIn('/blog/title-1', html)
+        self.assertIn('summary 1', html)
+        self.assertNotIn('full_text 1', html)
+        
+        self.assertIn('title 2', html)
+        self.assertIn('/blog/title-2', html)
+        self.assertIn('summary 2', html)
+        self.assertNotIn('full_text 2', html)
+
+
     def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/')
         self.assertEqual(found.func, home_page)
@@ -17,10 +53,10 @@ class HomePageTest(TestCase):
         self.assertTrue(html.startswith('<html>'))
         self.assertIn('<title>Koba Cake</title>', html)
         self.assertIn('<h1>Koba Cake</h1>', html)
-        self.assertTrue(html.endswith('</html>'))
+        self.assertTrue(html.endswith('</http>'))
 
 class ArticleModelTest(TestCase):
-
+    # Проверяет статьи
     def test_article_model_seve_and_retrive(self):
         # создай статью 1
         # сохрани статью 1
