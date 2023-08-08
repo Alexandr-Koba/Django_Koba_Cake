@@ -40,6 +40,8 @@ class BasicInstallTest(unittest.TestCase):
         article_summary = self.browser.find_element_by_class_name('article_summary')
         self.assertTrue(article_title)
         self.assertTrue(article_summary)
+
+        # Статьи открываются с красивым коротким адресом
         
 if __name__ == '__main__':
     unittest.main()
