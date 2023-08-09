@@ -1,6 +1,6 @@
 from django.urls import resolve
 from django.test import TestCase
-from blog.views import home_page
+from blog.views import home_page, article_page
 from blog.models import  Article
 from django.http import HttpRequest
 from datetime import datetime
@@ -20,10 +20,10 @@ class HomePageTest(TestCase):
         )
         # Создает статью 2
         Article.objects.create(
-            title='title 1',
-            summary='summary 1',
-            full_text='full_text 1',
-            pubdate=datetime.now()
+            title='title 2',
+            summary='summary 2',
+            full_text='full_text 2',
+            pubdate=datetime.now() # Время сейчас
         )
         # Открывает главную страницу
         request = HttpRequest()
