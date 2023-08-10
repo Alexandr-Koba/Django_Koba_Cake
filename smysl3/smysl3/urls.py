@@ -21,4 +21,7 @@ from blog import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_page),
+    
+    # Передаем значение в перемную и передаем его в вьюху
+    path('blog/<int:article_id>', views.article_page),
 ]

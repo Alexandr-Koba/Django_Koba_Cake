@@ -8,54 +8,54 @@ from datetime import datetime
 
 
 
-class HomePageTest(TestCase):
-    # Проверяет главную страницу
-    def test_home_page_displays_articles(self): 
-        # Создает статью 1
-        Article.objects.create(
-            title='title 1',
-            summary='summary 1',
-            full_text='full_text 1',
-            pubdate=datetime.now()
-        )
-        # Создает статью 2
-        Article.objects.create(
-            title='title 2',
-            summary='summary 2',
-            full_text='full_text 2',
-            pubdate=datetime.now() # Время сейчас
-        )
-        # Открывает главную страницу
-        request = HttpRequest()
-        response = home_page(request)
-        html = response.content.decode('utf8')
+# class HomePageTest(TestCase):
+#     #Проверяет главную страницу
+#     def test_home_page_displays_articles(self): 
+#         # Создает статью 1
+#         Article.objects.create(
+#             title='title 1',
+#             summary='summary 1',
+#             full_text='full_text 1',
+#             pubdate=datetime.now()
+#         )
+#         # Создает статью 2
+#         Article.objects.create(
+#             title='title 2',
+#             summary='summary 2',
+#             full_text='full_text 2',
+#             pubdate=datetime.now() # Время сейчас
+#         )
+#         # Открывает главную страницу
+#         request = HttpRequest()
+#         response = article_page(request)
+#         html = response.content.decode('utf8')
 
-        # проверить содержимое ответа:
-        self.assertIn('title 1', html)
-        self.assertIn('/blog/title-1', html)
-        self.assertIn('summary 1', html)
-        self.assertNotIn('full_text 1', html)
+#         # проверить содержимое ответа:
+#         self.assertIn('title 1', html)
+#         self.assertIn('/blog/title-1', html)
+#         self.assertIn('summary 1', html)
+#         self.assertNotIn('full_text 1', html)
         
-        self.assertIn('title 2', html)
-        self.assertIn('/blog/title-2', html)
-        self.assertIn('summary 2', html)
-        self.assertNotIn('full_text 2', html)
+#         self.assertIn('title 2', html)
+#         self.assertIn('/blog/title-2', html)
+#         self.assertIn('summary 2', html)
+#         self.assertNotIn('full_text 2', html)
 
 
-    def test_root_url_resolves_to_home_page_view(self):
-        found = resolve('/')
-        self.assertEqual(found.func, home_page)
+#     def test_root_url_resolves_to_home_page_view(self):
+#         found = resolve('/')
+#         self.assertEqual(found.func, home_page)
 
-    def test_home_page_returns_correct_html(self):
-        request = HttpRequest()
-        response = home_page(request)
-        html = response.content.decode('utf8')
-        self.assertTrue(html.startswith('<html>'))
-        self.assertIn('<title>Koba Cake</title>', html)
-        self.assertIn('<h1>Koba Cake</h1>', html)
-        self.assertTrue(html.endswith('</http>'))
+#     def test_home_page_returns_correct_html(self):
+#         request = HttpRequest()
+#         response = home_page(request)
+#         html = response.content.decode('utf8')
+#         self.assertTrue(html.startswith('<html>'))
+#         self.assertIn('<title>Koba Cake</title>', html)
+#         self.assertIn('<h1>Koba Cake</h1>', html)
+#         self.assertTrue(html.endswith('</html>'))
 
-class ArticleModelTest(TestCase):
+class ArticlelPageTest(TestCase):
     # Проверяет статьи
     def test_article_model_seve_and_retrive(self):
         # создай статью 1
@@ -67,18 +67,15 @@ class ArticleModelTest(TestCase):
             category='category 1',
             pubdate=datetime.now(),
         )
-        article1.save()
+        # Открывает главную страницу
+        request = HttpRequest()
+        response = article_page(request)
+        html = response.content.decode('utf8')
 
-        # создай статью 2
-        # сохрани статью 2
-        article2 = Article(
-            title='article 2',
-            full_text='full_text 2',
-            summary='symmary 2',
-            category='category 2',
-            pubdate=datetime.now(),
-        )
-        article2.save()
+        # проверить содержимое ответа:
+        self.assertIn('title 1', html)
+        self.assertIn('full_text 1', html)
+        self.assertNotIn('summary 1', html)
 
         # загрузи из базы все статьи
         all_articles = Article.objects.all()

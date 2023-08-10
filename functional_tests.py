@@ -64,6 +64,12 @@ class BasicInstallTest(unittest.TestCase):
 if __name__ == '__main__':
     unittest.main()
 
+# Попытался открыть не существующую статью
+# и ему открылась красивая страница "Страница не найдена"
+
+
+#self.fail('finish the test!')
+
 # tests Django page open
 #browser = webdriver.Chrome()
 #browser.get('http://127.0.0.1:8000')
